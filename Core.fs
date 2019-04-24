@@ -3,7 +3,7 @@ module Core
     open SFML.Graphics
     let H = 16
     let W = 72
-    let tileMap:string[] = [|
+    let mutable tileMap:string[] = [|
                 "########################################################################"
                 "#----------------------------------------------------------------------#"
                 "#----------------------------------------------------------------------#"
@@ -11,7 +11,7 @@ module Core
                 "#----------------------------------------------------------------------#"
                 "#----------------------------------------------------------------------#"
                 "#----------------------------------------------------------------------#"
-                "############-----------------------------------------------------------#"
+                "#######----------------------------------------------------------------#"
                 "#----------------------------------------------------------------------#"
                 "#----------------------------------------------------------------------#"
                 "#---###----------------------------------------------------------------#"
@@ -28,7 +28,7 @@ module Core
         static member private TEXTURE_DIR = @"./bin/Debug/Content/textures/"
         static member private FONT_DIR = @"./bin/Debug/Content/fonts/"
 
-        static member val PlayerTexture:Texture = new Texture(Content.TEXTURE_DIR+"NPC_16.png")
+        static member val SlimeTexture:Texture = new Texture(Content.TEXTURE_DIR+"NPC_16.png")
         static member Font  = new Font(Content.FONT_DIR+"sansation.ttf")
         static member Load() = 
-                               Content.PlayerTexture
+                               Content.SlimeTexture
