@@ -1,0 +1,10 @@
+/home/daniel/FSharp/simpleGame/bin/Debug/netcoreapp2.1/simpleGame.deps.json
+/home/daniel/FSharp/simpleGame/bin/Debug/netcoreapp2.1/simpleGame.runtimeconfig.json
+/home/daniel/FSharp/simpleGame/bin/Debug/netcoreapp2.1/simpleGame.runtimeconfig.dev.json
+/home/daniel/FSharp/simpleGame/bin/Debug/netcoreapp2.1/simpleGame.dll
+/home/daniel/FSharp/simpleGame/bin/Debug/netcoreapp2.1/simpleGame.pdb
+/home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.fsprojAssemblyReference.cache
+/home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.AssemblyInfoInputs.cache
+/home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.AssemblyInfo.fs
+/home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.dll
+/home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.pdb

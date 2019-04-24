@@ -27,9 +27,6 @@ type Game() =
         playercord.FillColor <- SFML.Graphics.Color.Red
         while gameWin.IsOpen do 
                                 gameWin.DispatchEvents()
-                                
-                               
-
                                
                                 offsetX <- (player :> IActor).X -  600.0f / 2.0f
                                 offsetY <- (player:> IActor).Y -  800.0f / 2.0f
