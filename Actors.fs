@@ -56,6 +56,9 @@ open Core
                                                                                                                                                                                      if (self :> IActor).DY < 0.0f then 
                                                                                                                                                                                                                    (self :> IActor).Y <- (float32)i * 32.0f + 35.0f
                                                                                                                                                                                                                    (self :> IActor).DY <- 0.0f
+                                                                                                                                           if Core.tileMap.[i].[j] = 'T' then 
+                                                                                                                                                                             if(self :> IActor).DY > 0.0f then 
+                                                                                                                                                                                                          (self :> IActor).Hp <- (self :> IActor).Hp - 5.0f
             member self.Update() = 
                                   (self :> IActor).X <- (self :> IActor).X + (self :> IActor).DX
                                   

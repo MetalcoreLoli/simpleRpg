@@ -49,6 +49,7 @@ type Game() =
                                        for j = 0 to W - 1  do 
                                                         if tileMap.[i].[j] = '#' then rect.FillColor <- SFML.Graphics.Color.White
                                                         if tileMap.[i].[j] = '-' then rect.FillColor <- SFML.Graphics.Color.Transparent
+                                                        if tileMap.[i].[j] = 'T' then rect.FillColor <- SFML.Graphics.Color.Red
                                                         rect.Position <- new Vector2f((float32)j * 32.0f - offsetX, (float32)i * 32.0f - offsetY)
                                                         gameWin.Draw(rect)
 
