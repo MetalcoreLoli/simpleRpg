@@ -25,6 +25,9 @@ type Game() =
         
         let playercord = new Text("player X: "+(player :> IActor).X.ToString()+" player Y: "+(player :> IActor).Y.ToString(), Content.Font)
         playercord.FillColor <- SFML.Graphics.Color.Red
+        
+        let statusString = new Text(player.StatusString, Content.Font)
+        statusString.FillColor <- SFML.Graphics.Color.Yellow
         while gameWin.IsOpen do 
                                 gameWin.DispatchEvents()
                                
@@ -40,6 +43,7 @@ type Game() =
                                 gameWin.Clear()
                                 player.Update()
                                 playercord.DisplayedString <- "player X: "+(player :> IActor).X.ToString()+" player Y: "+(player :> IActor).Y.ToString()
+                                statusString.DisplayedString <- player.StatusString
                                 //draw here!!!
                                 for i = 0 to H - 1  do
                                        for j = 0 to W - 1  do 
@@ -50,6 +54,7 @@ type Game() =
 
                                 gameWin.Draw((player :> IActor).Sprite)
                                 gameWin.Draw(playercord)
+                                gameWin.Draw(statusString)
                                 gameWin.Display()
 
 [<EntryPoint;STAThread>]

@@ -10,11 +10,14 @@ open Core
             abstract member X:float32 with get, set
             abstract member Y:float32 with get, set
             abstract member Sprite:Sprite with get, set
+            abstract member IsLive:bool with get, set
+            abstract member Hp:float32 with get, set
+            abstract member MaxHp:float32 with get, set
+
         type Player() =
             let playerSprite = 
                                 let s = new Sprite(Content.PlayerTexture)
                                 s.TextureRect <- IntRect(1, 35, 40, 30)
-
                                 s
             
             member val playerOnGround = true with get, set 
@@ -24,7 +27,17 @@ open Core
                     member val DY = 0.0f with get, set
                     member val X = 50.0f with get, set
                     member val Y = 150.0f with get, set
+                    member val Hp = 100.0f with get, set
+                    member val MaxHp = 100.0f with get, set
+                    member val IsLive = true with get, set 
                     member val Sprite:Sprite = playerSprite with get, set
+            
+            member self.Level = 1
+            
+            member self.StatusString = 
+                                    let lvl = "Level: "+self.Level.ToString()
+                                    let hps = "Hp: "+(self :> IActor).Hp.ToString() + " / " + (self :> IActor).MaxHp.ToString()
+                                    lvl+"\n"+hps
 
             member self.Collision(dir:int) = 
                                               for i = (int)((self :> IActor).Y / 32.0f) to (int)(( (self :> IActor).Y + 30.0f) / 32.0f) do 
