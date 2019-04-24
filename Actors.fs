@@ -80,3 +80,4 @@ open Core
                                     | Keyboard.Key.Up -> if self.playerOnGround then (self :> IActor).DY <- (self :> IActor).DY - 15.6f
                                                                                      self.playerOnGround <- false
                                     | Keyboard.Key.Down -> (self :> IActor).DY <- (self :> IActor).DY + 1.6f
+                                    
