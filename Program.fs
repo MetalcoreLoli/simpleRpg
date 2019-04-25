@@ -6,6 +6,7 @@ open SFML.Window
 open Core
 open Actors
 open SFML.System
+open MessageBox
 
 type Game() = 
     
@@ -51,13 +52,10 @@ type Game() =
                                                            
                                 
                                 slime.Update((float32)time)
-
-                                if player.Intersects(slime) then 
-                                                            (player :> IActor).Sprite.Color <- SFML.Graphics.Color.Red
-
-
+                               
+                           
                                 playercord.DisplayedString <- "player X: "+(player :> IActor).X.ToString()+" player Y: "+(player :> IActor).Y.ToString()
-                                smilecord.DisplayedString <- "slime X: "+(slime :> IActor).X.ToString()+" slime Y: "+(slime :> IActor).Y.ToString()
+                                //smilecord.DisplayedString <- "slime X: "+(slime :> IActor).X.ToString()+" slime Y: "+(slime :> IActor).Y.ToString()
                                 statusString.DisplayedString <- player.StatusString
                                 //draw here!!!
                                 for i = 0 to H - 1  do
@@ -69,10 +67,10 @@ type Game() =
                                                         rect.Position <- new Vector2f((float32)j * 32.0f - offsetX, (float32)i * 32.0f - offsetY)
                                                         gameWin.Draw(rect)
 
+                                if not (player :> IActor).IsLive then MessageBox.Show("You Dead!", gameWin)
                                 gameWin.Draw((player :> IActor).Sprite)
                                 gameWin.Draw(playercord)
                                 gameWin.Draw((slime :> IActor).Sprite)
-                                gameWin.Draw(smilecord)
                                 gameWin.Draw(statusString)
                                 gameWin.Display()
 

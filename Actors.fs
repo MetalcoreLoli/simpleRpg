@@ -47,8 +47,6 @@ open Core
                                                                                                                                                                                      //potolok
                                                                                                                                                                                      if (self :> IActor).DY < 0.0f then 
                                                                                                                                                                                                                    (self :> IActor).Y <- (float32)i * 32.0f + 32.5f
-           //member self.StatusString = "Hp: "+(self :> IActor).Hp.ToString() + " / " + (self :> IActor).MaxHp.ToString()
-                                    
                                                                                                                                                                                                                    (self :> IActor).DY <- 0.0f
             member self.Update(time:float32) = 
                                   (self :> IActor).X <- (self :> IActor).X + (self :> IActor).DX * time  
@@ -85,8 +83,8 @@ open Core
                     member val Sprite:Sprite = playerSprite with get, set
             
             member self.Level = 1
-            member self.Intersects(actor:IActor):bool = (self :> IActor).X/32.0f > (actor :> IActor).X/32.0f || (self :> IActor).X/32.0f < (actor :> IActor).X / 32.0f
-                                                     && (self :> IActor).Y/32.0f > (actor :> IActor).Y/32.0f && (self :> IActor).Y/32.0f < (actor :> IActor).Y/ 32.0f 
+            member self.Intersects(actor:IActor):bool = (self :> IActor).X / 32.0f > (actor :> IActor).X / 32.0f && (self :> IActor).X / 32.0f < (actor :> IActor).X / 32.0f
+                                                     || (self :> IActor).Y / 32.0f > (actor :> IActor).Y / 32.0f && (self :> IActor).Y / 32.0f < (actor :> IActor).Y / 32.0f 
 
             member self.StatusString = 
                                     let lvl = "Level: "+self.Level.ToString()
@@ -96,7 +94,7 @@ open Core
             member self.Collision(dir:int) = 
                                               for i = (int)((self :> IActor).Y / 32.0f) to (int)(( (self :> IActor).Y + 30.0f) / 32.0f) do 
                                                     for j = (int)((self :> IActor).X / 32.0f) to (int)(( (self :> IActor).X + 40.0f) / 32.0f) do 
-                                                                                                                                           if Core.tileMap.[i].[j] = '#' then 
+                                                                                                                                            if Core.tileMap.[i].[j] = '#' then 
                                                                                                                                                                          if dir = 0 then 
                                                                                                                                                                                     if (self :> IActor).DX > 0.0f then (self :> IActor).X <- (float32)j * 32.0f - 30.5f
                                                                                                                                                                                     if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 32.5f
@@ -110,9 +108,9 @@ open Core
                                                                                                                                                                                      if (self :> IActor).DY < 0.0f then 
                                                                                                                                                                                                                    (self :> IActor).Y <- (float32)i * 32.0f + 32.5f
                                                                                                                                                                                                                    (self :> IActor).DY <- 0.0f
-                                                                                                                                           if Core.tileMap.[i].[j] = 'T' then 
+                                                                                                                                            if Core.tileMap.[i].[j] = 'T' then 
                                                                                                                                                                              if(self :> IActor).DY > 0.0f then 
-                                                                                                                                                                                                          if (self :> IActor).Hp > 0.0f then (self :> IActor).Hp <- (self :> IActor).Hp - 50.1f
+                                                                                                                                                                                                          if (self :> IActor).Hp > 0.0f then (self :> IActor).Hp <- (self :> IActor).Hp - 5.1f
                                                                                                                                                                                                           if (self :> IActor).Hp < 0.0f then (self :> IActor).IsLive <- false
                                                                                                                                                                                                          // Core.tileMap.[i].[j] <- '-'
             member self.Update() = 

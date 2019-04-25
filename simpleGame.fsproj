@@ -8,6 +8,7 @@
   <ItemGroup>
     <Compile Include="Core.fs" />
     <Compile Include="Actors.fs" />
+    <Compile Include="MessageBox.fs" />
     <Compile Include="Program.fs" />
   </ItemGroup>
   <ItemGroup>
