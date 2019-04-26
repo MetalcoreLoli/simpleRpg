@@ -7,6 +7,26 @@
 
   <ItemGroup>
     <Compile Include="Core.fs" />
+    <Compile Include="Events\MouseClickEvent.fs" />
+    <Compile Include="Controls\Control.fs" />
+    <Content Include="Content\textures\Background_0.png" />
+    <Content Include="Content\textures\Background_11.png" />
+    <Content Include="Content\textures\Background_17.png" />
+    <Content Include="Content\textures\NPC_16.png" />
+    <Content Include="Content\textures\Player_Hair_29.png" />
+    <Content Include="Content\textures\Player_Hands.png" />
+    <Content Include="Content\textures\Player_Hands2.png" />
+    <Content Include="Content\textures\Player_Head.png" />
+    <Content Include="Content\textures\Player_Pants.png" />
+    <Content Include="Content\textures\Player_Shirt.png" />
+    <Content Include="Content\textures\Player_Shoes.png" />
+    <Content Include="Content\textures\Player_Undershirt.png" />
+    <Content Include="Content\textures\Player_Undershirt2.png" />
+    <Content Include="Content\textures\TileSetVX___Global_4.png" />
+    <Content Include="Content\textures\Tileset_Espa_o.png" />
+    <Content Include="Content\textures\Tiles_0.png" />
+    <Content Include="Content\textures\Tiles_2.png" />
+    <Content Include="Content\fonts\sansation.ttf" />
     <Compile Include="Actors.fs" />
     <Compile Include="MessageBox.fs" />
     <Compile Include="Program.fs" />

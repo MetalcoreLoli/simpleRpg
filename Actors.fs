@@ -129,8 +129,8 @@ open Core
 
             member self.move(key) = 
                                    match key with 
-                                    | Keyboard.Key.Left -> (self :> IActor).DX <- (self :> IActor).DX - 1.6f
-                                    | Keyboard.Key.Right -> (self :> IActor).DX <- (self :> IActor).DX + 1.6f
+                                    | Keyboard.Key.Left -> (self :> IActor).DX <- (self :> IActor).DX - 2.6f
+                                    | Keyboard.Key.Right -> (self :> IActor).DX <- (self :> IActor).DX + 2.6f
                                     | Keyboard.Key.Up -> if self.playerOnGround then (self :> IActor).DY <- (self :> IActor).DY - 15.6f
                                                                                      self.playerOnGround <- false
-                                    | Keyboard.Key.Down -> (self :> IActor).DY <- (self :> IActor).DY + 1.6f
+                                    | Keyboard.Key.Down -> (self :> IActor).DY <- (self :> IActor).DY + 2.6f

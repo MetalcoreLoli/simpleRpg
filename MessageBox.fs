@@ -28,8 +28,16 @@ module MessageBox
                                                 messageText.FillColor <- SFML.Graphics.Color.Black
                                                 messageText.DisplayedString <- message
                                                 messageText.Position <- new Vector2f(MessageBox.H, MessageBox.W)
-
+                                                
+                                                let button = new Control.Control.Button(
+                                                                                        Text = "ClickMe!", 
+                                                                                        Width = 50.0f, 
+                                                                                        Height = 30.0f, 
+                                                                                        X = MessageBox.H, 
+                                                                                        Y = MessageBox.W + 85.5f)
                                                 panel.Draw(rect)
+                                                panel.Draw(button.ButtonDrawable)
+                                                
                                                 panel.Draw(messageText)
 
                                                 

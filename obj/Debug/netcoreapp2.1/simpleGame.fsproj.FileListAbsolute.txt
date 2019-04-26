@@ -8,3 +8,13 @@
 /home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.AssemblyInfo.fs
 /home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.dll
 /home/daniel/FSharp/simpleGame/obj/Debug/netcoreapp2.1/simpleGame.pdb
+C:\Users\User\Documents\GitHub\simpleRpg\bin\Debug\netcoreapp2.1\simpleGame.deps.json
+C:\Users\User\Documents\GitHub\simpleRpg\bin\Debug\netcoreapp2.1\simpleGame.runtimeconfig.json
+C:\Users\User\Documents\GitHub\simpleRpg\bin\Debug\netcoreapp2.1\simpleGame.runtimeconfig.dev.json
+C:\Users\User\Documents\GitHub\simpleRpg\bin\Debug\netcoreapp2.1\simpleGame.dll
+C:\Users\User\Documents\GitHub\simpleRpg\bin\Debug\netcoreapp2.1\simpleGame.pdb
+C:\Users\User\Documents\GitHub\simpleRpg\obj\Debug\netcoreapp2.1\simpleGame.fsprojAssemblyReference.cache
+C:\Users\User\Documents\GitHub\simpleRpg\obj\Debug\netcoreapp2.1\simpleGame.AssemblyInfoInputs.cache
+C:\Users\User\Documents\GitHub\simpleRpg\obj\Debug\netcoreapp2.1\simpleGame.AssemblyInfo.fs
+C:\Users\User\Documents\GitHub\simpleRpg\obj\Debug\netcoreapp2.1\simpleGame.dll
+C:\Users\User\Documents\GitHub\simpleRpg\obj\Debug\netcoreapp2.1\simpleGame.pdb
