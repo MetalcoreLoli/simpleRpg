@@ -37,7 +37,7 @@ module MessageBox
                                                                                         Y = MessageBox.W + 85.5f)
                                                 panel.Draw(rect)
                                                 panel.Draw(button.ButtonDrawable)
-                                                
+                                                panel.Draw(button.ButtonText)
                                                 panel.Draw(messageText)
 
                                                 

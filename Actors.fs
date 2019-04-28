@@ -96,8 +96,8 @@ open Core
                                                     for j = (int)((self :> IActor).X / 32.0f) to (int)(( (self :> IActor).X + 40.0f) / 32.0f) do 
                                                                                                                                             if Core.tileMap.[i].[j] = '#' then 
                                                                                                                                                                          if dir = 0 then 
-                                                                                                                                                                                    if (self :> IActor).DX > 0.0f then (self :> IActor).X <- (float32)j * 32.0f - 30.5f
-                                                                                                                                                                                    if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 32.5f
+                                                                                                                                                                                    if (self :> IActor).DX > 0.0f then (self :> IActor).X <- (float32)j * 32.0f - 40.5f
+                                                                                                                                                                                    if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 40.5f
                                                                                                                                                                          if dir = 1 then
                                                                                                                                                                                       //floor 
                                                                                                                                                                                      if (self :> IActor).DY > 0.0f then 

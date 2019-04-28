@@ -32,3 +32,4 @@ module Core
         static member Font  = new Font(Content.FONT_DIR+"sansation.ttf")
         static member Load() = 
                                Content.SlimeTexture
+                               Content.Font

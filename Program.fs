@@ -8,8 +8,7 @@ open Actors
 open SFML.System
 open MessageBox
 
-     
-                             
+                      
                                 
 [<EntryPoint;STAThread>]
 let main argv =
@@ -44,7 +43,7 @@ let main argv =
                        if Keyboard.IsKeyPressed(Keyboard.Key.Up) then player.move(Keyboard.Key.Up)
                        if Keyboard.IsKeyPressed(Keyboard.Key.Right) then player.move(Keyboard.Key.Right)
                        if Keyboard.IsKeyPressed(Keyboard.Key.Down) then player.move(Keyboard.Key.Down)
-                                    
+                       if Keyboard.IsKeyPressed(Keyboard.Key.Escape) then gameWin.Close()
                                     
                        gameWin.Clear()
                        if (player :> IActor).IsLive then
