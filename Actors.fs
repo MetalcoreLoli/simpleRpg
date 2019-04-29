@@ -4,6 +4,8 @@ open SFML.Graphics
 open SFML.System
 open SFML.Window
 open Core
+open System
+
         type IActor = 
             abstract member DX:float32 with get, set
             abstract member DY:float32 with get, set
@@ -26,7 +28,7 @@ open Core
                     member val DX = 0.05f with get, set
                     member val DY = 0.0f with get, set
                     member val X = 150.0f with get, set
-                    member val Y = 150.0f with get, set
+                    member val Y = 50.0f with get, set
                     member val Hp = 100.0f with get, set
                     member val MaxHp = 100.0f with get, set
                     member val IsLive = true with get, set 
@@ -36,33 +38,42 @@ open Core
                                                     for j = (int)((self :> IActor).X / 32.0f) to (int)(( (self :> IActor).X + 40.0f) / 32.0f) do 
                                                                                                                                            if Core.tileMap.[i].[j] = '#' then 
                                                                                                                                                                          if dir = 0 then 
-                                                                                                                                                                                    if (self :> IActor).DX > 0.0f then (self :> IActor).X <- (float32)j * 32.0f - 30.5f
-                                                                                                                                                                                    if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 32.5f
+                                                                                                                                                                                    if (self :> IActor).DX > 0.0f then (self :> IActor).X <- (float32)j * 32.0f - 40.5f
+                                                                                                                                                                                    if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 40.0f
                                                                                                                                                                          if dir = 1 then
-                                                                                                                                                                                      //floor 
                                                                                                                                                                                      if (self :> IActor).DY > 0.0f then 
-                                                                                                                                                                                                                   (self :> IActor).Y <- (float32)i * 32.0f - 30.5f
-                                                                                                                                                                                                                   (self :> IActor).DY <- 0.0f
-                                                                                                                                                                                                                   self.slimeOnGround <- true
+                                                                                                                                                                                         (self :> IActor).Y <- (float32)i * 32.0f - 30.5f
+                                                                                                                                                                                         (self :> IActor).DY <- 0.0f
+                                                                                                                                                                                         self.slimeOnGround <- true
                                                                                                                                                                                      //potolok
                                                                                                                                                                                      if (self :> IActor).DY < 0.0f then 
-                                                                                                                                                                                                                   (self :> IActor).Y <- (float32)i * 32.0f + 32.5f
-                                                                                                                                                                                                                   (self :> IActor).DY <- 0.0f
+                                                                                                                                                                                         (self :> IActor).Y <- (float32)i * 32.0f + 32.5f
+                                                                                                                                                                                         (self :> IActor).DY <- 0.0f
+                                                                                                                                           if Core.tileMap.[i].[j] = 'T' then 
+                                                                                                                                                if(self :> IActor).DY > 0.0f then 
+                                                                                                                                                                             if (self :> IActor).Hp > 0.0f then (self :> IActor).Hp <- (self :> IActor).Hp - 0.1f
+                                                                                                                                                                             if (self :> IActor).Hp < 0.0f then (self :> IActor).IsLive <- false
+            member self.move(dir) = 
+                               if dir = 1 then (self :> IActor).X <-  (self :> IActor).X + (self :>IActor).DX + 1.5f 
+                               if dir = 0 then (self :> IActor).X <-  (self :> IActor).X + (self :>IActor).DX - 1.5f 
+                                
             member self.Update(time:float32) = 
-                                  (self :> IActor).X <- (self :> IActor).X + (self :> IActor).DX * time  
-                                  
+                                  (self :> IActor).X <- (self :> IActor).X + (self :> IActor).DX * time
+                                 
                                   self.Collision(0)
-                                  
+                                 
                                   if not self.slimeOnGround then (self :> IActor).DY <- (self :> IActor).DY + 0.6f
-                                  (self :> IActor).Y <- (self :> IActor).DY + (self :> IActor).Y
+                                  (self :> IActor).Y <- (self :> IActor).DY + (self :> IActor).Y 
                                   self.slimeOnGround <- false
                                   
                                   self.Collision(1)
                                   
+                                  if not (self :> IActor).IsLive then (self :> IActor).Sprite.Color <- SFML.Graphics.Color.Red
+                                   
                                   (self :> IActor).Sprite.Position <- new Vector2f((self :> IActor).X - offsetX, (self :> IActor).Y - offsetY)
                                   (self :> IActor).DX <- 0.0f
         
-        
+        //player
         type Player() =
             let playerSprite = 
                                 let s = new Sprite(Content.SlimeTexture)
@@ -88,8 +99,10 @@ open Core
 
             member self.StatusString = 
                                     let lvl = "Level: "+self.Level.ToString()
-                                    let hps = "Hp: "+(self :> IActor).Hp.ToString() + " / " + (self :> IActor).MaxHp.ToString()+" Live: "+(self :> IActor).IsLive.ToString()
-                                    lvl+"\n"+hps
+                                    let mutable hp = (int)(self :> IActor).Hp
+                                    let mutable maxhp = (int)(self :> IActor).MaxHp
+                                    let hps:string = "Lvl: "+self.Level.ToString()+"\nHp: "+hp.ToString()+" / "+maxhp.ToString()
+                                    hps+"\n\n"
 
             member self.Collision(dir:int) = 
                                               for i = (int)((self :> IActor).Y / 32.0f) to (int)(( (self :> IActor).Y + 30.0f) / 32.0f) do 
@@ -97,7 +110,7 @@ open Core
                                                                                                                                             if Core.tileMap.[i].[j] = '#' then 
                                                                                                                                                                          if dir = 0 then 
                                                                                                                                                                                     if (self :> IActor).DX > 0.0f then (self :> IActor).X <- (float32)j * 32.0f - 40.5f
-                                                                                                                                                                                    if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 40.5f
+                                                                                                                                                                                    if (self :> IActor).DX < 0.0f then (self :> IActor).X <- (float32)j * 32.0f + 32.0f
                                                                                                                                                                          if dir = 1 then
                                                                                                                                                                                       //floor 
                                                                                                                                                                                      if (self :> IActor).DY > 0.0f then 
@@ -108,18 +121,25 @@ open Core
                                                                                                                                                                                      if (self :> IActor).DY < 0.0f then 
                                                                                                                                                                                                                    (self :> IActor).Y <- (float32)i * 32.0f + 32.5f
                                                                                                                                                                                                                    (self :> IActor).DY <- 0.0f
+                                                                                                                                            if Core.tileMap.[i].[j] = 'P' then 
+                                                                                                                                                                                Core.level <- level - 1
+                                                                                                                                                                                Core.tileMap <- Core.levels.[level]
+                                                                                                                                            if Core.tileMap.[i].[j] = 'N' then 
+                                                                                                                                                                                Core.level <- level + 1
+                                                                                                                                                                                Core.tileMap <- Core.levels.[level]
+
                                                                                                                                             if Core.tileMap.[i].[j] = 'T' then 
                                                                                                                                                                              if(self :> IActor).DY > 0.0f then 
-                                                                                                                                                                                                          if (self :> IActor).Hp > 0.0f then (self :> IActor).Hp <- (self :> IActor).Hp - 5.1f
+                                                                                                                                                                                                          if (self :> IActor).Hp > 0.0f then (self :> IActor).Hp <- (self :> IActor).Hp - 1.0f
                                                                                                                                                                                                           if (self :> IActor).Hp < 0.0f then (self :> IActor).IsLive <- false
-                                                                                                                                                                                                         // Core.tileMap.[i].[j] <- '-'
-            member self.Update() = 
-                                  (self :> IActor).X <- (self :> IActor).X + (self :> IActor).DX
+                                                                                                                                                                                                         //
+            member self.Update(time) = 
+                                  (self :> IActor).X <- (self :> IActor).X + (self :> IActor).DX * time
                                   
                                   self.Collision(0)
                                   
                                   if not self.playerOnGround then (self :> IActor).DY <- (self :> IActor).DY + 0.6f
-                                  (self :> IActor).Y <- (self :> IActor).DY + (self :> IActor).Y
+                                  (self :> IActor).Y <-  (self :> IActor).Y+ (self :> IActor).DY 
                                   self.playerOnGround <- false
                                   
                                   self.Collision(1)
@@ -129,8 +149,8 @@ open Core
 
             member self.move(key) = 
                                    match key with 
-                                    | Keyboard.Key.Left -> (self :> IActor).DX <- (self :> IActor).DX - 2.6f
-                                    | Keyboard.Key.Right -> (self :> IActor).DX <- (self :> IActor).DX + 2.6f
+                                    | Keyboard.Key.Left -> (self :> IActor).DX <- (self :> IActor).DX - 0.5f
+                                    | Keyboard.Key.Right -> (self :> IActor).DX <- (self :> IActor).DX + 0.5f 
                                     | Keyboard.Key.Up -> if self.playerOnGround then (self :> IActor).DY <- (self :> IActor).DY - 15.6f
                                                                                      self.playerOnGround <- false
-                                    | Keyboard.Key.Down -> (self :> IActor).DY <- (self :> IActor).DY + 2.6f
+                                    | Keyboard.Key.Down -> (self :> IActor).DY <- (self :> IActor).DY + 0.6f

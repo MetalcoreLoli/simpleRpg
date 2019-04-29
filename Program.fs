@@ -26,52 +26,77 @@ let main argv =
     let playercord = new Text("player X: "+(player :> IActor).X.ToString()+" player Y: "+(player :> IActor).Y.ToString(), Content.Font)
     playercord.FillColor <- SFML.Graphics.Color.Red
     playercord.Position <- new Vector2f(150.0f, 0.0f)
-            
+    playercord.CharacterSize <- 5u
+
+    let playerHealth = new Text("", Content.Font)
+    playerHealth.CharacterSize <- 15u
+    playerHealth.FillColor <- SFML.Graphics.Color((byte)155, (byte)255, (byte)25)
+    playerHealth.OutlineColor <- SFML.Graphics.Color.Black
+    playerHealth.OutlineThickness <- 2.0f
     let statusString = new Text(player.StatusString, Content.Font)
     statusString.FillColor <- SFML.Graphics.Color.Yellow
+    playercord.CharacterSize <- 15u
             
-    let smilecord = new Text("slime X: "+(slime :> IActor).X.ToString()+" slime Y: "+(slime :> IActor).Y.ToString(), Content.Font)
+    let smilecord = new Text("HP: "+(slime :> IActor).Hp.ToString(), Content.Font)
     smilecord.Position  <- new Vector2f(200.0f, 50.0f)
-            
+    smilecord.CharacterSize <- 15u
+    let clock =  new Clock()
+    
     let rec mainLoop() = 
                        gameWin.DispatchEvents()
-                       let time = DateTime.Now.Millisecond
-                       offsetX <- (player :> IActor).X -  600.0f / 2.0f
-                       offsetY <- (player:> IActor).Y -  800.0f / 2.0f
-    
-                       if Keyboard.IsKeyPressed(Keyboard.Key.Left) then player.move(Keyboard.Key.Left)
+                       gameWin.Clear()
+                       let mutable time = clock.ElapsedTime.AsMilliseconds()
+                       clock.Restart() |> ignore
+                       offsetX <- (player :> IActor).X - 600.0f / 2.0f
+                       offsetY <- (player:> IActor).Y - 800.0f / 2.0f
+                       gameWin.SetTitle("Level: "+level.ToString())
+                       
+                       //slime.move(1)
+                        
+                       slime.Update((float32)time)   
+                       smilecord.Position  <- new Vector2f((slime :> IActor).X - 16.0f - offsetX, (slime :> IActor).Y - 32.0f - offsetY)     
+                        
+                       
+                       
+                       //if Keyboard.IsKeyPressed(Keyboard.Key.LShift) then 
+                       if Keyboard.IsKeyPressed(Keyboard.Key.Left) then player.move(Keyboard.Key.Left)                                              
                        if Keyboard.IsKeyPressed(Keyboard.Key.Up) then player.move(Keyboard.Key.Up)
                        if Keyboard.IsKeyPressed(Keyboard.Key.Right) then player.move(Keyboard.Key.Right)
                        if Keyboard.IsKeyPressed(Keyboard.Key.Down) then player.move(Keyboard.Key.Down)
                        if Keyboard.IsKeyPressed(Keyboard.Key.Escape) then gameWin.Close()
-                                    
-                       gameWin.Clear()
+                       
+                       playerHealth.Position <- new Vector2f((player :> IActor).X - 16.0f - offsetX, (player :> IActor).Y - 40.0f - offsetY)
+                       playerHealth.DisplayedString <- player.StatusString
+                       
                        if (player :> IActor).IsLive then
-                                                    player.Update()
+                                                    player.Update((float32)time)
                                                                
-                                    
-                       slime.Update((float32)time)
+                                 
+                      
                                    
                                
                        playercord.DisplayedString <- "player X: "+(player :> IActor).X.ToString()+" player Y: "+(player :> IActor).Y.ToString()
-                                    //smilecord.DisplayedString <- "slime X: "+(slime :> IActor).X.ToString()+" slime Y: "+(slime :> IActor).Y.ToString()
+                       
                        statusString.DisplayedString <- player.StatusString
                                     //draw here!!!
+                       
                        for i = 0 to H - 1  do
                                            for j = 0 to W - 1  do 
                                                             if tileMap.[i].[j] = '#' then rect.FillColor <- SFML.Graphics.Color.White
                                                             if tileMap.[i].[j] = '-' then rect.FillColor <- SFML.Graphics.Color.Transparent
                                                             if tileMap.[i].[j] = 'T' then rect.FillColor <- SFML.Graphics.Color.Red
-                                                            
+                                                            if tileMap.[i].[j] = 'N' then rect.FillColor <- SFML.Graphics.Color.Blue
+                                                            if tileMap.[i].[j] = 'P' then rect.FillColor <- SFML.Graphics.Color.Yellow
+
                                                             rect.Position <- new Vector2f((float32)j * 32.0f - offsetX, (float32)i * 32.0f - offsetY)
                                                             gameWin.Draw(rect)
     
                        if not (player :> IActor).IsLive then MessageBox.Show("You Dead!", gameWin)
                        
                        gameWin.Draw((player :> IActor).Sprite)
-                       gameWin.Draw(playercord)
+                       gameWin.Draw(smilecord)
                        gameWin.Draw((slime :> IActor).Sprite)
-                       gameWin.Draw(statusString)
+                       gameWin.Draw(playerHealth)
                        gameWin.Display()
                         
                        
